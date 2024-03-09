@@ -4,10 +4,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 models = SQLAlchemy()
-gestor = LoginManager()
+manager = LoginManager()
 
 
-@gestor.user_loader
+@manager.user_loader
 def load__user(Usuario_id):
     return User.query.get(Usuario_id)
 

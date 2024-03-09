@@ -1,7 +1,7 @@
 from flask import Flask
 from config import Config
 from project.urls import routing
-from project.models import models, gestor
+from project.models import models, manager
 from flask_migrate import Migrate
 
 # Configuracion De Flask
@@ -21,8 +21,8 @@ with app.app_context():
     metadata.reflect(bind=models.engine)
     migraciones_realizadas = 'alembic_version' in metadata.tables
     if migraciones_realizadas:
-        gestor.init_app(app)
-        gestor.login_view = 'login'
+        manager.init_app(app)
+        manager.login_view = 'login'
     else:
         print('migrations not found')
 
