@@ -1,4 +1,4 @@
-from .views import index
+from .views import *
 
 # añade tus urls de tus views al routing de flask
 def routing(app):

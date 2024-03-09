@@ -1,7 +1,7 @@
 from flask import Flask
 from config import Config
 from project.urls import routing
-from project.models import models
+from project.models import models, gestor
 from flask_migrate import Migrate
 
 # Configuracion De Flask
@@ -14,6 +14,17 @@ routing(app)
 # Inicializa la DB desde models.py
 models.init_app(app)
 Migrate(app, models)
+
+# Inicializa LoginManager desde models.py
+with app.app_context():
+    metadata = models.MetaData()
+    metadata.reflect(bind=models.engine)
+    migraciones_realizadas = 'alembic_version' in metadata.tables
+    if migraciones_realizadas:
+        gestor.init_app(app)
+        gestor.login_view = 'login'
+    else:
+        print('migrations not found')
 
 # Inicializa la aplicacion 
 if __name__ == '__main__':
