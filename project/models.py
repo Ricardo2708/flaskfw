@@ -18,13 +18,15 @@ class User(models.Model, UserMixin):
     email = models.Column(models.String(64), unique = True, index = True)
     name = models.Column(models.String(64), unique = True, index = True)
     password_hash = models.Column(models.String(128))
+    is_admin = models.Column(models.Boolean, default=False)
 
-    def __init__(self, name, email, password):
+    def __init__(self, name, email, password_hash, is_admin):
         self.name = name
         self.email = email
-        self.password_hash = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password_hash)
+        self.is_admin = is_admin
 
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+    def check_password(self, password_hash):
+        return check_password_hash(self.password_hash, password_hash)
     
-# Create your models here
+# Crea tus modelos aqui
