@@ -45,8 +45,8 @@ class LoginView(BaseView):
     
 class RegisterView(BaseView):
     def is_accessible(self):
-        user = User.query.all()
-        if len(user) == 0 : 
+        user = User.query.filter_by(is_admin = True).count()
+        if user == 0 : 
             return not current_user.is_authenticated
         else:
             if current_user.is_authenticated:
@@ -66,7 +66,7 @@ class RegisterView(BaseView):
                 flash('El usuario ya existe')
                 pass
             else:
-                new_user = User(email = email, name=name, password_hash=password, is_admin=False)
+                new_user = User(email = email, name=name, password_hash=password, is_admin=True)
                 models.session.add(new_user)
                 models.session.commit()
                 flash('Usuario creado con éxito. Por favor, inicia sesión.')
