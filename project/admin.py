@@ -109,6 +109,6 @@ def init_admin(app):
     admin.init_app(app)
     admin.add_view(LoginView(name='Login', endpoint='login'))
     admin.add_view(RegisterView(name='Register', endpoint='register'))
-    admin.add_view(MicroBlogModelView(User, models.session, name='admin', endpoint='admin.index'))
+    admin.add_view(MicroBlogModelView(User, models.session))
     register_admin_views(admin)
     admin.add_view(LogoutView(name='Logout', endpoint='logout'))
