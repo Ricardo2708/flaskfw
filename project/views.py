@@ -4,6 +4,6 @@ from project.models import *
 from flask_login import login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# Añade tus vistas aqui
+# Create your views here
 def index():
     return render_template('index.html')

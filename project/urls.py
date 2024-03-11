@@ -1,5 +1,5 @@
 from .views import *
 
-# añade tus urls de tus views al routing de flask
+# Create your url's here
 def routing(app):
     app.add_url_rule('/', 'index', index)

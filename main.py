@@ -3,6 +3,7 @@ from config import Config
 from project.urls import routing
 from project.models import models, manager
 from flask_migrate import Migrate
+from project.admin import init_admin
 
 # Configuracion De Flask
 app = Flask(__name__,template_folder='project/templates',static_folder='project/static')
@@ -15,6 +16,14 @@ routing(app)
 models.init_app(app)
 Migrate(app, models)
 
+# Inicializa el panel de administración
+with app.app_context():
+    metadata = models.MetaData()
+    metadata.reflect(bind=models.engine)
+    migraciones_realizadas = 'alembic_version' in metadata.tables
+    if migraciones_realizadas:
+        init_admin(app)
+
 # Inicializa LoginManager desde models.py
 with app.app_context():
     metadata = models.MetaData()
@@ -23,8 +32,6 @@ with app.app_context():
     if migraciones_realizadas:
         manager.init_app(app)
         manager.login_view = 'login'
-    else:
-        print('migrations not found')
 
 # Inicializa la aplicacion 
 if __name__ == '__main__':
