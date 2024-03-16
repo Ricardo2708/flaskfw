@@ -1,4 +1,4 @@
-¿Como realizar Migraciones?
+How to perform Migrations?
 
 export FLASK_APP=main.py
 
