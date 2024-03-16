@@ -1,0 +1,112 @@
+{% extends 'admin/private/layouts/master.html' %}
+
+{% block title %} Users {% endblock %}
+
+
+
+
+{% block content %}
+    <main class="content p-4 pt-3">
+        <div class="mb-3 ms-2 d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <h1 class="border-end d-inline pe-3 m-0 ">
+                    User Manager
+                </h1>
+                <p class="ms-2 m-0 text-secondary" style="font-size: 0.85rem;">
+                    {{users | length }} - total users
+                </p>
+            </div>
+
+
+            <div class="btn-group" role="group" aria-label="Button group with two buttons">
+                <a class="btn btn-secondary me-4" style="font-weight: 500; font-size: 0.9rem;" href="{{ url_for('user.create' ) }}" role="button"> 
+                    <i class="bi bi-plus-circle-fill me-1" style="vertical-align: middle;" ></i>
+                    Create user
+                </a>
+            </div>
+        </div>
+        <section class="bg bg-white p-4 rounded shadow-sm bg-light">
+            <div class="d-flex justify-content-between mb-4">
+                <form class="d-flex" role="search">
+                    <a class="btn btn-primary" href="{{ url_for('user.index' ) }}"  type="submit" style="font-weight: 500; font-size: 0.9rem;">
+                        <i class="bi bi-arrow-clockwise"></i>
+                        Data Reload 
+                    </a>
+                </form>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <form class="d-flex" action="{{ url_for('user.index' ) }}" role="search">
+                        <select class="form-select ms-3" name="is_adminSearch" aria-label="Default select example">
+                            <option selected>is admin:</option>
+                            <option value="1">True</option>
+                            <option value="0">False</option>
+                        </select>
+                        <input class="form-control ms-3" type="search" name="nameUser" placeholder="Search {{active_link}}" aria-label="Search">
+                        <button class="btn btn-primary ms-3" name="search_query" value="search_query"  type="submit" style="font-weight: 500; font-size: 0.9rem;">Search </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="rounded">
+                <table class="table table-borderless table-striped table-hover table-bordered ">
+                    <thead class="sidebar3">
+                      <tr>
+                        <th scope="col">ID <i class="bi bi-chevron-compact-down"></i></th>
+                        <th scope="col">Name <i class="bi bi-chevron-compact-down"></i></th>
+                        <th scope="col">Email <i class="bi bi-chevron-compact-down"></i></th>
+                        <th scope="col">Admin <i class="bi bi-chevron-compact-down"></i></th>
+                        <th scope="col">Handle <i class="bi bi-chevron-compact-down"></i></th>
+                        <th scope="col">Actions <i class="bi bi-chevron-compact-down"></i></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr class="sidebar3">
+                                <td>{{ user.id }}</td>
+                                <th class="text-primary active fw-normal me-3" scope="row">
+                                    <form action="{{ url_for('user.edit' ) }}" method="GET">
+                                        <button type="submit" name="user_edit" class="d-flex border-0 aling-items-center bg-transparent" value="{{user.id}}">
+                                            <i class="bi bi-person-fill text-primary"></i>
+                                            <p class="m-0 ms-2 text-primary">{{ user.name }}</p>
+                                        </button>
+                                    </form>
+                                </th>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.is_admin }}</td>
+                                <td>{{ user.created_at.strftime('%d-%m-%Y')}}</td>
+                                <td class="content-button d-flex justify-content-center">
+                                    <form action="{{ url_for('user.delete' ) }}" method="GET">
+                                        <button type="submit" name="user_delete" class="btn btn-primary me-3 deleteUser" style="font-weight: 500; font-size: 0.8rem;" value="{{user.id}}">Delete</button>
+                                    </form>
+                                    <form action="{{ url_for('user.edit' ) }}" method="GET">
+                                        <button type="submit" name="user_edit" class="btn btn-secondary me-3" style="font-weight: 500; font-size: 0.8rem;" value="{{user.id}}">Update</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+
+    <script>
+        let deleteUser = document.querySelectorAll('.deleteUser')
+        console.log(deleteUser);
+        deleteUser.forEach(element => {
+            element.addEventListener('click', function(e){
+                e.preventDefault()
+                if (confirm('¿Estás seguro de que deseas generar el documento de Word?')) {
+                    const deleteUserUrl = '{{ url_for("user.delete") }}' + '?user_delete=' + e.target.value;
+                    window.location.href = deleteUserUrl;
+                }
+
+
+            })
+        });
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'admin/private/layouts/master.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+
+{% block content %}
+<main class="content p-4 pt-3">
+    <div class="hero p-4 bg bg-white mb-4 rounded shadow-sm bg-light">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-md-6">
+                    <h1 class="display-5 fw-bold text-black">Welcome to Flask Admin</h1>
+                    <p class="lead text-secondary" style="font-size: 1rem;">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                    <div role="group" aria-label="Button group with two buttons">
+                        <a class="btn btn-primary btn-lg me-4" style="font-size: 0.95rem; font-weight: 500;" href="#" role="button">Learn more </a>
+                        <a class="btn btn-secondary btn-lg" style="font-size: 0.95rem; font-weight: 500;" href="#" role="button">Learn more</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://steamusercontent-a.akamaihd.net/ugc/82595628823614964/59CA60267C9EF097829F8B6CFDED0CD489F0ECCE/" style="display: block; width: 60%; margin: 0 auto;" alt="Placeholder Image" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <section class="bg bg-white p-4 rounded shadow-sm bg-light mb-5">
+        <div class="hero text-white mb-2">
+            <div class="mt-2">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header text-secondary">
+                                System Models
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <a href="{{ url_for('user.index' ) }}" style="font-weight: 500; font-size: 0.9rem;">Users</a>
+                                        <div class="" role="group" aria-label="Button group with two buttons">
+                                            <a class="btn btn-primary me-2" style="font-weight: 500; font-size: 0.8rem;" href="{{ url_for('user.create' ) }}" role="button"> 
+                                                Create
+                                            </a>
+                                            <a class="btn btn-secondary me-2" style="font-weight: 500; font-size: 0.8rem;" href="{{ url_for('user.index' ) }}" role="button"> 
+                                                Modity
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header text-secondary">
+                                Custom Models
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+{% endblock %}
