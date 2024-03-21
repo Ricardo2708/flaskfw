@@ -6,7 +6,7 @@
     <main class="content p-4 pt-3">
         <div class="mb-3 ms-2 d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <h1 class="border-end d-inline pe-3 m-0 ">
+                <h1 class="border-end d-inline pe-3 m-0 text-capitalize">
                     {{path}} Manager
                 </h1>
                 <p class="ms-2 m-0 text-secondary" style="font-size: 0.85rem;">
@@ -25,18 +25,13 @@
         <section class="bg bg-white p-4 rounded shadow-sm bg-light">
             <div class="d-flex justify-content-between mb-4">
                 <form class="d-flex" role="search">
-                    <a class="btn btn-primary" href="{{ url_for('user.index' ) }}"  type="submit" style="font-weight: 500; font-size: 0.9rem;">
+                    <a class="btn btn-primary" href="{{ url_for('admin.index' ) }}{{path}}"  type="submit" style="font-weight: 500; font-size: 0.9rem;">
                         <i class="bi bi-arrow-clockwise"></i>
                         Data Reload 
                     </a>
                 </form>
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <form class="d-flex" action="{{ url_for('user.index' ) }}" role="search">
-                        <select class="form-select ms-3" name="is_adminSearch" aria-label="Default select example">
-                            <option selected>is admin:</option>
-                            <option value="1">True</option>
-                            <option value="0">False</option>
-                        </select>
                         <input class="form-control ms-3" type="search" name="nameUser" placeholder="Search {{active_link}}" aria-label="Search">
                         <button class="btn btn-primary ms-3" name="search_query" value="search_query"  type="submit" style="font-weight: 500; font-size: 0.9rem;">Search </button>
                     </form>

@@ -35,12 +35,7 @@
                 </form>
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <form class="d-flex" action="{{ url_for('user.index' ) }}" role="search">
-                        <select class="form-select ms-3" name="is_adminSearch" aria-label="Default select example">
-                            <option selected>is admin:</option>
-                            <option value="1">True</option>
-                            <option value="0">False</option>
-                        </select>
-                        <input class="form-control ms-3" type="search" name="nameUser" placeholder="Search {{active_link}}" aria-label="Search">
+                        <input class="form-control ms-3" type="search" name="nameUser" placeholder="Search" aria-label="Search">
                         <button class="btn btn-primary ms-3" name="search_query" value="search_query"  type="submit" style="font-weight: 500; font-size: 0.9rem;">Search </button>
                     </form>
                 </div>
