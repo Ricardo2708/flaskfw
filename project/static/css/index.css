@@ -38,6 +38,11 @@ th{
     text-align: left;
 }
 
+.table-bordered>:not(caption)>*>*:last-of-type{
+    border-width: 0 1px !important;
+    border-left: 1px !important;
+}
+
 table{
     border-radius: 10rem;
 }
@@ -91,8 +96,8 @@ body {
 
 
 #sidebar.expand {
-    width: 225px;
-    min-width: 225px;
+    width: 200px;
+    min-width: 200px;
 }
 
 .sidebar2{
@@ -104,8 +109,8 @@ body {
 }
 
 #sidebar {
-    width: 85px;
-    min-width: 85px;
+    width: 80px;
+    min-width: 80px;
     z-index: 1000;
     transition: all .25s ease-in-out;
     background-color: #212529;

@@ -22,7 +22,12 @@ with app.app_context():
     metadata.reflect(bind=models.engine)
     migraciones_realizadas = 'alembic_version' in metadata.tables
     if migraciones_realizadas:
-        init_admin(app)
+        registered_models = init_admin(app)
+
+        @app.context_processor
+        def inject_registered_models():
+            return dict(registered_models=registered_models)
+
 
 # Inicializa LoginManager desde models.py
 with app.app_context():

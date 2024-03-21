@@ -1,16 +1,13 @@
 {% extends 'admin/private/layouts/master.html' %}
 
-{% block title %} Users {% endblock %}
-
-
-
+{% block title %} Home {% endblock %}
 
 {% block content %}
     <main class="content p-4 pt-3">
         <div class="mb-3 ms-2 d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
                 <h1 class="border-end d-inline pe-3 m-0 ">
-                    User Manager
+                    {{path}} Manager
                 </h1>
                 <p class="ms-2 m-0 text-secondary" style="font-size: 0.85rem;">
                     {{users | length }} - total users
@@ -50,29 +47,50 @@
             <div class="rounded">
                 <table class="table table-borderless table-striped table-hover table-bordered ">
                     <thead class="sidebar3">
-                      <tr>
-                        <th scope="col">ID <i class="bi bi-chevron-compact-down"></i></th>
-                        <th scope="col">Name <i class="bi bi-chevron-compact-down"></i></th>
-                        <th scope="col">Email <i class="bi bi-chevron-compact-down"></i></th>
-                        <th scope="col">Admin <i class="bi bi-chevron-compact-down"></i></th>
-                        <th scope="col">Handle <i class="bi bi-chevron-compact-down"></i></th>
+                    <tr>
+                        {% if models %}
+                            
+                        
+                            {% for field in models[0].__table__.columns %}
+                                {% if not field.name.startswith('_sa') %}
+                                    <th scope="col">{{ field.name }}</th>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
                         <th scope="col">Actions <i class="bi bi-chevron-compact-down"></i></th>
-                      </tr>
+                    </tr>
                     </thead>
                     <tbody>
-                        {% for user in users %}
+                        {% for model in models %}
                             <tr class="sidebar3">
-                                <td>{{ user.id }}</td>
-                                <td>{{ user.name }}</td>
-                                <td>{{ user.email }}</td>
-                                <td>{{ user.is_admin }}</td>
-                                <td>{{ user.created_at.strftime('%d-%m-%Y')}}</td>
+                                {% for field in model.__table__.columns %}
+                                    {% if not field.name.startswith('_sa') %}
+                                        <td>{{ model[field.name] }}</td>
+                                    {% endif %}
+                                {% endfor %}
+
                                 <td class="content-button d-flex justify-content-center">
                                     <form action="{{ url_for('user.delete' ) }}" method="GET">
-                                        <button type="submit" name="user_delete" class="btn btn-primary me-3 deleteUser" style="font-weight: 500; font-size: 0.8rem;" value="{{user.id}}">Delete</button>
+                                        <button type="submit" name="user_delete" class="btn btn-primary me-3 deleteUser" style="font-weight: 500; font-size: 0.8rem;"
+                                            {% for field in model.__table__.columns %}
+                                                {% if field.primary_key %}
+                                                    value="{{ model[field.name] }}" 
+                                                {% endif %}
+                                            {% endfor %}
+                                        >
+                                            Delete
+                                        </button>   
                                     </form>
                                     <form action="{{ url_for('user.edit' ) }}" method="GET">
-                                        <button type="submit" name="user_edit" class="btn btn-secondary me-3" style="font-weight: 500; font-size: 0.8rem;" value="{{user.id}}">Update</button>
+                                        <button type="submit" name="user_edit" class="btn btn-secondary me-3" style="font-weight: 500; font-size: 0.8rem;"
+                                            {% for field in model.__table__.columns %}
+                                                {% if field.primary_key %}
+                                                    value="{{ model[field.name] }}" 
+                                                {% endif %}
+                                            {% endfor %}
+                                        >
+                                            Update
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
@@ -83,7 +101,6 @@
         </section>
 
     </main>
-
 
     <script>
         let deleteUser = document.querySelectorAll('.deleteUser')
@@ -101,5 +118,4 @@
         });
 
     </script>
-
 {% endblock %}

@@ -48,12 +48,11 @@
                             <span>Models</span>
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Login</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Register</a>
-                            </li>
+                            {% for model in registered_models %}
+                                <li class="sidebar-item">
+                                    <a href="{{ url_for('admin.index' ) }}{{ model }}" class="sidebar-link text-capitalize">{{ model }}</a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </li>
                     <li class="sidebar-item">
@@ -62,6 +61,7 @@
                             <span>Muti Level</span>
                         </a>
                         <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link">Login</a>
                             </li>
