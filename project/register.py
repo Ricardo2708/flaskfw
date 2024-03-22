@@ -25,7 +25,7 @@ class MicroBlogModelView(ModelView):
         return self.render('admin/private/dynamic/index.html', path = path, models = model )
 
 def register_admin_views(admin):
-    models_to_register = [Clientes]
+    models_to_register = []
     for model in models_to_register:
         admin.add_view(MicroBlogModelView(model, models.session))
     return [model.__name__.lower() for model in models_to_register]
